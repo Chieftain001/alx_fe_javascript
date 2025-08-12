@@ -14,17 +14,18 @@ function showRandomQuote() {
 
 // Function to add a new quote
 function addQuote() {
-    let text = document.getElementById("newQuoteText").value;
-    let category = document.getElementById("newQuoteCategory").value;
+    let newQuoteText = document.getElementById("newQuoteText").value.trim();
+    let newQuoteCategory = document.getElementById("newQuoteCategory").value.trim();
 
-    if (text && category) {
-        quotes.push({ text: text, category: category });
+    if (newQuoteText && newQuoteCategory) {
+        quotes.push({ text: newQuoteText, category: newQuoteCategory });
         document.getElementById("newQuoteText").value = "";
         document.getElementById("newQuoteCategory").value = "";
-        showRandomQuote();
+        displayRandomQuote();
+    } else {
+        alert("Please enter both quote text and category.");
     }
 }
-
 // Event listener for "Show New Quote" button
 document.getElementById("newQuote").addEventListener("click", showRandomQuote);
 
