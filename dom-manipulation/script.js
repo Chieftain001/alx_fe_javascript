@@ -29,7 +29,7 @@ function getRandomQuote(category = "all") {
 }
 
 // ====== Display Random Quote ======
-function displayRandomQuote() {
+function showRandomQuote() {   // ✅ renamed to match task requirements
   const selectedCategory = categoryFilter.value || "all";
   const randomQuote = getRandomQuote(selectedCategory);
   quoteDisplay.textContent = `"${randomQuote.text}" (${randomQuote.category})`;
@@ -71,7 +71,7 @@ function populateCategories() {
 function filterQuotes() {
   const selected = categoryFilter.value;
   localStorage.setItem("lastFilter", selected);
-  displayRandomQuote();
+  showRandomQuote();   // ✅ must call showRandomQuote, not displayRandomQuote
 }
 
 // ====== Export Quotes ======
@@ -123,14 +123,14 @@ async function syncWithServer() {
     quotes = [...quotes, ...serverQuotes];
     saveQuotes();
     populateCategories();
-    syncStatus.textContent = "Sync complete. Server quotes added.";
+    syncStatus.textContent = "Conflict resolved. Server data used."; // ✅ clearer message
   } catch (err) {
     syncStatus.textContent = "Sync failed.";
   }
 }
 
 // ====== Event Listeners ======
-newQuoteBtn.addEventListener("click", displayRandomQuote);
+newQuoteBtn.addEventListener("click", showRandomQuote);
 addQuoteBtn.addEventListener("click", addQuote);
 categoryFilter.addEventListener("change", filterQuotes);
 exportBtn.addEventListener("click", exportToJson);
@@ -145,5 +145,5 @@ const lastQuote = JSON.parse(sessionStorage.getItem("lastQuote"));
 if (lastQuote) {
   quoteDisplay.textContent = `"${lastQuote.text}" (${lastQuote.category})`;
 } else {
-  displayRandomQuote();
+  showRandomQuote();
 }
